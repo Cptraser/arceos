@@ -1,3 +1,4 @@
+use axalloc::GlobalAllocator;
 use hashbrown::hash_map as base;
 use core::hash::{BuildHasher, Hash, Hasher, SipHasher13};
 use spinlock::SpinNoIrq;

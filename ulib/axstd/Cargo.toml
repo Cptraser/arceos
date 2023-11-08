@@ -73,5 +73,6 @@ axfeat = { path = "../../api/axfeat" }
 arceos_api = { path = "../../api/arceos_api" }
 axio = { path = "../../crates/axio" }
 axerrno = { path = "../../crates/axerrno" }
+axalloc = { path = "../../modules/axalloc" }
 spinlock = { path = "../../crates/spinlock" }
 hashbrown = "0.9.1"
