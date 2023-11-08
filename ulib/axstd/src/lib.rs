@@ -47,6 +47,8 @@
 //! [ArceOS]: https://github.com/rcore-os/arceos
 
 #![cfg_attr(all(not(test), not(doc)), no_std)]
+#![feature(hashmap_internals)]
+#![feature(const_hash)]
 #![feature(doc_cfg)]
 #![feature(doc_auto_cfg)]
 #![feature(ip_in_core)]
@@ -71,6 +73,7 @@ pub mod process;
 pub mod sync;
 pub mod thread;
 pub mod time;
+pub mod hashmap;
 
 #[cfg(feature = "fs")]
 pub mod fs;
