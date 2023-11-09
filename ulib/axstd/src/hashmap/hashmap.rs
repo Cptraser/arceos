@@ -1,9 +1,6 @@
-use axalloc::GlobalAllocator;
 use hashbrown::hash_map as base;
 use core::hash::{BuildHasher, Hash, Hasher, SipHasher13};
 use spinlock::SpinNoIrq;
-use core::fmt;
-use core::cell::Cell;
 use core::fmt::Debug;
 use crate::time;
 static PARK_MILLER_LEHMER_SEED: SpinNoIrq<u32> = SpinNoIrq::new(0);
