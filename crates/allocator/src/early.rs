@@ -75,7 +75,7 @@ impl<const PAGE_SIZE: usize> PageAllocator for EarlyAllocator<PAGE_SIZE> {
         })
     }
 
-    fn dealloc_pages(&mut self, pos: usize, num_pages: usize) {
+    fn dealloc_pages(&mut self, _pos: usize, num_pages: usize) {
         // TODO: not decrease `used_pages` if deallocation failed
         self.used_pages -= num_pages;
         // self.inner.dealloc((pos - self.base) / PAGE_SIZE)
@@ -109,7 +109,7 @@ impl<const PAGE_SIZE: usize> ByteAllocator for EarlyAllocator<PAGE_SIZE> {
         }
     }
 
-    fn dealloc(&mut self, pos: NonNull<u8>, layout: Layout) {
+    fn dealloc(&mut self, _pos: NonNull<u8>, layout: Layout) {
         let size = layout.size();
         self.used_bytes -= size;
         if self.used_bytes == 0 {

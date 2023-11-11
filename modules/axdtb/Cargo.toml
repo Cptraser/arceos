@@ -1,0 +1,21 @@
+[package]
+name = "axdtb"
+version = "0.1.0"
+edition = "2021"
+authors = ["Kehe Ye <1131531950@qq.com>"]
+description = "Dtb analyse used by ArceOS"
+license = "GPL-3.0-or-later OR Apache-2.0"
+homepage = "https://github.com/rcore-os/arceos"
+repository = "https://github.com/rcore-os/arceos/tree/main/modules/axlog"
+documentation = "https://rcore-os.github.io/arceos/axlog/index.html"
+
+[features]
+default = []
+
+
+[dependencies]
+fdt = "0.1.5"
+axlog = { path = "../axlog" }
+allocator = { path = "../../crates/allocator" }
+
+[dev-dependencies]
