@@ -41,44 +41,18 @@ pub fn parse_dtb(dtb_pa: usize) -> Result<DtbInfo, Error> {
             return Err(Error);
         }
         let addr = fdt.memory().regions().next().unwrap().starting_address as usize;
-        if let Some(size) = fdt.memory().regions().next().unwrap().size {
-            let soc = fdt.find_node("/soc");
-            if let Some(soc) = soc {
-                let mut regions = Vec::new();
-                for child in soc.children() {
-                    if child.name.contains("mmio") {
-                        if let Some(reg_prop) = child.property("reg") {
-                            // axlog::info!("childname:{}", child.name);
-                            let reg_values: &[u8] = reg_prop.value;
-                            // for x in reg_values {
-                            //     axlog::info!("{:#x}", x);
-                            // }
-                            let address: usize = (reg_values[4] as usize) << 24 |
-                                                 (reg_values[5] as usize) << 16 |
-                                                 (reg_values[6] as usize) << 8 | 
-                                                 (reg_values[7] as usize);
-                            let size: usize = (reg_values[12] as usize) << 24 |
-                                              (reg_values[13] as usize) << 16 |
-                                              (reg_values[14] as usize) << 8 | 
-                                              (reg_values[15] as usize);
-                            regions.push( (address, size) );
-                        } else {
-                            return Err(Error);
-                        }
-                    }
-                }
-                let res = Ok(DtbInfo {
-                    memory_addr: addr,
-                    memory_size: size,
-                    mmio_regions: regions,
-                });
-                return res;
-            }
-            return Err(Error);
+        let size = fdt.memory().regions().next().unwrap().size.unwrap();
+        let mut regions = Vec::new();
+        for mmio_node in fdt.find_all_nodes("/soc/virtio_mmio") {
+            regions.push( (mmio_node.reg().unwrap().next().unwrap().starting_address as usize, 
+                           mmio_node.reg().unwrap().next().unwrap().size.unwrap()) );
         }
-        Err(Error)
+        let res = Ok(DtbInfo {
+            memory_addr: addr,
+            memory_size: size,
+            mmio_regions: regions,
+        });
+        res
     }
     
 }
-
-
