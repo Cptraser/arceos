@@ -22,8 +22,9 @@ cfg_if::cfg_if! {
         pub(crate) type Scheduler = scheduler::CFScheduler<TaskInner>;
     } else {
         // If no scheduler features are set, use FIFO as the default.
-        pub(crate) type AxTask = scheduler::FifoTask<TaskInner>;
-        pub(crate) type Scheduler = scheduler::FifoScheduler<TaskInner>;
+        const MAX_TIME_SLICE: usize = 5;
+        pub(crate) type AxTask = scheduler::FifoTask<TaskInner, MAX_TIME_SLICE>;
+        pub(crate) type Scheduler = scheduler::FifoScheduler<TaskInner, MAX_TIME_SLICE>;
     }
 }
 

@@ -7,7 +7,7 @@ use std::alloc::Allocator;
 use std::collections::BTreeMap;
 use std::io::Write;
 
-use allocator::{AllocatorRc, BuddyByteAllocator, SlabByteAllocator, TlsfByteAllocator};
+use allocator::{AllocatorRc, BuddyByteAllocator, SlabByteAllocator, TlsfByteAllocator, EarlyAllocator};
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use rand::{rngs::SmallRng, seq::SliceRandom, RngCore, SeedableRng};
 
@@ -94,6 +94,11 @@ fn criterion_benchmark(c: &mut Criterion) {
         c,
         "buddy",
         AllocatorRc::new(BuddyByteAllocator::new(), pool.as_slice()),
+    );
+    bench(
+        c,
+        "early",
+        AllocatorRc::new(EarlyAllocator::new(), pool.as_slice()),
     );
 }
 

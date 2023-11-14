@@ -20,6 +20,7 @@
 //!     - `alloc-tlsf`: Use the TLSF allocator.
 //!     - `alloc-slab`: Use the slab allocator.
 //!     - `alloc-buddy`: Use the buddy system allocator.
+//!     - `alloc-early`: Use the early system allocator.
 //!     - `paging`: Enable page table manipulation.
 //!     - `tls`: Enable thread-local storage.
 //! - Task management
