@@ -21,7 +21,7 @@ dd if=./hello_app/hello_app.bin of=./apps.bin conv=notrunc bs=1 seek=3
 
 app_size2=$(stat -c %s ./hello_app2/hello_app2.bin)
 printf "$(printf '%04x' $app_size2)" | xxd -r -p | dd of=./apps.bin conv=notrunc bs=1 seek=9
-dd if=./hello_app/hello_app.bin of=./apps.bin conv=notrunc bs=1 seek=11
+dd if=./hello_app2/hello_app2.bin of=./apps.bin conv=notrunc bs=1 seek=11
 
 mkdir -p ./arceos/payload
 mv ./apps.bin ./arceos/payload/apps.bin
