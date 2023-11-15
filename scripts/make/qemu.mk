@@ -24,7 +24,7 @@ qemu_args-aarch64 := \
   -machine virt \
   -kernel $(OUT_BIN)
 
-qemu_args-y := -m 128M -smp $(SMP) $(qemu_args-$(ARCH))
+qemu_args-y := -m 128M -smp $(SMP) $(qemu_args-$(ARCH)) -drive if=pflash,file=$(CURDIR)/payload/apps.bin,format=raw,unit=1
 
 qemu_args-$(BLK) += \
   -device virtio-blk-$(vdev-suffix),drive=disk0 \
